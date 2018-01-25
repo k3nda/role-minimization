@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="whizbang PMD ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>BSC Commons PMD ruleset.</description>
+
+    <rule ref="src/main/resources/code-style/pmd/pmd-basic.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-braces.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-design.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-empty.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-imports.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-strings.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-typeresolution.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-unnecessary.xml"/>
+    <rule ref="src/main/resources/code-style/pmd/pmd-unusedcode.xml"/>
+
+</ruleset>
