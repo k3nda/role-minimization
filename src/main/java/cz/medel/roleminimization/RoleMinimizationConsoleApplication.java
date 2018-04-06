@@ -3,9 +3,12 @@
  */
 package cz.medel.roleminimization;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import cz.medel.roleminimization.execution.MainService;
 
 
 /**
@@ -15,6 +18,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class RoleMinimizationConsoleApplication implements CommandLineRunner {
+
+    @Autowired
+    private MainService mainService;
 
     /**
      * Main.
@@ -27,6 +33,6 @@ public class RoleMinimizationConsoleApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        //do something
+      mainService.execute();
     }
 }
