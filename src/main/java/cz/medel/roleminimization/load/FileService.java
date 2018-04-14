@@ -35,7 +35,7 @@ public class FileService {
 
             IntStream.range(0, lines.size())
                     .forEach(lineIndex -> {
-                        Vertex newUserVertex = new Vertex(lineIndex, VertexType.USER);
+                        Vertex newUserVertex = new Vertex(String.valueOf(lineIndex), VertexType.USER);
                         graph.addVertex(newUserVertex);
 
                         String[] rights = lines.get(lineIndex).split(",");
@@ -43,8 +43,9 @@ public class FileService {
                         IntStream.range(0, rights.length)
                                 .filter(permissionIndex -> "1".equals(rights[permissionIndex]))
                                 .forEach(j -> {
-                                    Vertex permissionVertex = graph.addOrGetVertex(j, VertexType.PERMISSION);
+                                    Vertex permissionVertex = graph.addOrGetVertex(String.valueOf(j), VertexType.PERMISSION);
 
+                                    graph.addEdge(newUserVertex, permissionVertex);
                                     newUserVertex.addAdjacent(permissionVertex);
                                     permissionVertex.addAdjacent(newUserVertex);
                                 });

@@ -16,15 +16,26 @@ public class Graph {
 
     private Set<Vertex> vertices;
 
+    private Set<Edge> edges;
+
     public Graph() {
         this.vertices = new HashSet<>();
+        this.edges = new HashSet<>();
+    }
+
+    public void addEdge(Vertex vertexA, Vertex vertexB) {
+        if (edges.contains(new Edge(vertexA, vertexB)) || edges.contains(new Edge(vertexB, vertexA))) {
+            return;
+        }
+
+        edges.add(new Edge(vertexA, vertexB));
     }
 
     public void addVertex(Vertex vertex) {
         vertices.add(vertex);
     }
 
-    public Vertex addOrGetVertex(Integer id, VertexType vertexType) {
+    public Vertex addOrGetVertex(String id, VertexType vertexType) {
         return vertices.stream()
                 .filter(vertex -> vertex.getId().equals(id) && vertex.getType().equals(vertexType))
                 .findAny()
@@ -34,7 +45,7 @@ public class Graph {
                     return newVertex;
                 });
     }
-    public Vertex getVertex(Integer id, VertexType vertexType) {
+    public Vertex getVertex(String id, VertexType vertexType) {
         return vertices.stream()
                 .filter(vertex -> vertex.getId().equals(id) && vertex.getType().equals(vertexType))
                 .findFirst()
@@ -47,6 +58,14 @@ public class Graph {
 
     public void setVertices(Set<Vertex> vertices) {
         this.vertices = vertices;
+    }
+
+    public Set<Edge> getEdges() {
+        return edges;
+    }
+
+    public void setEdges(Set<Edge> edges) {
+        this.edges = edges;
     }
 
     @Override
