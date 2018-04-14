@@ -14,13 +14,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class Vertex {
 
-    private final Integer id;
+    private final String id;
 
     private final VertexType type;
 
     private Set<Vertex> adjacent;
 
-    public Vertex(Integer id, VertexType type) {
+    public Vertex(String id, VertexType type) {
         this.id = id;
         this.type = type;
         this.adjacent = new HashSet<>();
@@ -40,7 +40,7 @@ public class Vertex {
         return dominators.containsAll(vertices);
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -64,7 +64,8 @@ public class Vertex {
         Vertex vertex = (Vertex) o;
 
         if (id != null ? !id.equals(vertex.id) : vertex.id != null) { return false; }
-        return type == vertex.type;
+        if (type != vertex.type) { return false; }
+        return adjacent != null ? adjacent.equals(vertex.adjacent) : vertex.adjacent == null;
     }
 
     @Override

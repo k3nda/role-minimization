@@ -10,5 +10,7 @@ public enum VertexType {
 
     USER,
 
-    PERMISSION
+    PERMISSION,
+
+    NONE
 }
