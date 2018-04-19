@@ -113,7 +113,7 @@
 		<module name="LocalVariableName"/>
 		<module name="MemberName"/>
 		<module name="MethodName">
-			<!-- allow underscore in method name for test methods. -->
+			<!-- allow underscore in method name for createEdgeDualGraph methods. -->
 			<property name="format" value="^([a-z][a-zA-Z0-9])*|(test[a-z][a-zA-Z0-9_]*)$"/>
 		</module>
 		<module name="PackageName"/>
@@ -258,7 +258,7 @@
 			<property name="allowMissingPropertyJavadoc" value="true"/>
 			<property name="scope" value="protected"/>
 			<property name="excludeScope" value="private"/>
-			<!-- test method may not need javadoc, test method is annotation with JUnit annotation. -->
+			<!-- createEdgeDualGraph method may not need javadoc, createEdgeDualGraph method is annotation with JUnit annotation. -->
 			<property name="allowedAnnotations" value="Override,Test,After,Before,AfterClass,BeforeClass"/>
 			<property name="ignoreMethodNamesRegex" value="with.+"/>
 		</module>
