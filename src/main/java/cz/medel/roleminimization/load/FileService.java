@@ -44,10 +44,9 @@ public class FileService {
                                 .filter(permissionIndex -> "1".equals(rights[permissionIndex]))
                                 .forEach(j -> {
                                     Vertex permissionVertex = graph.addOrGetVertex(String.valueOf(j), VertexType.PERMISSION);
-
                                     graph.addEdge(newUserVertex, permissionVertex);
-                                    newUserVertex.addAdjacent(permissionVertex);
-                                    permissionVertex.addAdjacent(newUserVertex);
+                                    //newUserVertex.addAdjacent(permissionVertex);
+                                    //permissionVertex.addAdjacent(newUserVertex);
                                 });
                     });
         } catch (URISyntaxException | IOException e) {

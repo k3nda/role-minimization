@@ -26,9 +26,7 @@ public class MainService {
     public void execute() {
         Graph graph = fileService.loadGraph("dataset/figure1.txt");
 
-        //graphService.reduce(graph);
-        //graphService.createEdgeDualGraph(graph);
-        graphService.test(graph);
+        graphService.createEdgeDualGraph(graph);
         /*graph.getVertices().forEach(vertex -> System.out.println(
                 String.format(
                         "Vertex type=%s, id=%d is dominator for type=%s, id=%d? %s",

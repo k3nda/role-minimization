@@ -27,25 +27,25 @@ public class GraphService {
 
     private List<List<Vertex>> mcp = new ArrayList<>();
 
-    public Graph test(Graph bipartiteGraph) {
+    public Graph createEdgeDualGraph(Graph bipartiteGraph) {
         Graph edgeDualGraph = new Graph();
 
         bipartiteGraph.getEdges()
-                .forEach(edgeA -> {
-                    String dualVertexIndex = edgeA.getVertexA().getId() + edgeA.getVertexB().getId();
+                .forEach(edgeX -> {
+                    String dualVertexIndex = edgeX.getVertexA().getId() + edgeX.getVertexB().getId();
                     Vertex dualVertex = edgeDualGraph.addOrGetVertex(dualVertexIndex, VertexType.NONE);
 
                     bipartiteGraph.getEdges()
-                            .forEach(edgeB -> {
-                                if (!edgeA.equals(edgeB)) {
-                                    List<Vertex> leftVertices = List.of(edgeA.getVertexA(), edgeB.getVertexA());
-                                    List<Vertex> rightVertices = List.of(edgeA.getVertexB(), edgeB.getVertexB());
+                            .forEach(edgeY -> {
+                                if (!edgeX.equals(edgeY)) {
+                                    List<Vertex> leftVertices = List.of(edgeX.getVertexA(), edgeY.getVertexA());
+                                    List<Vertex> rightVertices = List.of(edgeX.getVertexB(), edgeY.getVertexB());
                                     if (graphManager.induceBiclique(leftVertices, rightVertices)) {
-                                        String dualVertexIndex2 = edgeB.getVertexA().getId() + edgeB.getVertexB().getId();
+                                        String dualVertexIndex2 = edgeY.getVertexA().getId() + edgeY.getVertexB().getId();
                                         Vertex dualVertex2 = edgeDualGraph.addOrGetVertex(dualVertexIndex2, VertexType.NONE);
                                         edgeDualGraph.addEdge(dualVertex, dualVertex2);
-                                        dualVertex.addAdjacent(dualVertex2);
-                                        dualVertex2.addAdjacent(dualVertex);
+                                        //dualVertex.addAdjacent(dualVertex2);
+                                        //dualVertex2.addAdjacent(dualVertex);
                                     }
                                 }
                             });
@@ -53,42 +53,6 @@ public class GraphService {
 
         return edgeDualGraph;
     }
-
-    public Graph createEdgeDualGraph(Graph bipartiteGraph) {
-        Graph edgeDualGraph = new Graph();
-
-        bipartiteGraph.getVertices().stream()
-                .filter(vertex -> !vertex.getAdjacent().isEmpty())
-                .filter(vertex -> vertex.getType() == VertexType.USER)
-                .forEach(
-                        userVertex -> userVertex.getAdjacent().forEach(
-                                permissionVertex -> {
-                                    String dualIndex = userVertex.getId() + permissionVertex.getId();
-                                    Vertex dualVertex = edgeDualGraph.addOrGetVertex(dualIndex, VertexType.NONE);
-
-                                    //add adjacent - permissions
-                                    permissionVertex.getAdjacent().stream()
-                                            .filter(adjacent -> !adjacent.equals(userVertex))
-                                            .forEach(adjacent -> {
-                                                String dualIndex2 = adjacent.getId() + permissionVertex.getId();
-                                                dualVertex.getAdjacent().add(edgeDualGraph.addOrGetVertex(dualIndex2, VertexType.NONE));
-                                            });
-                                    //add adjacent - users
-                                    userVertex.getAdjacent().stream()
-                                            .filter(adjacent -> !adjacent.equals(permissionVertex))
-                                            .forEach(adjacent -> {
-                                                String dualIndex2 = userVertex.getId() + adjacent.getId();
-                                                dualVertex.getAdjacent().add(edgeDualGraph.addOrGetVertex(dualIndex2, VertexType.NONE));
-                                            });
-
-                                    //4 vertices biclique
-                                    //graphManager.induceBiclique(Set.of(dualVertex), )
-                                }
-                        ));
-
-        return edgeDualGraph;
-    }
-
 
     public void reduce(Graph graph) {
         clique(new ArrayList<>(graph.getVertices()));
